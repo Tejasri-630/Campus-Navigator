@@ -1,75 +1,106 @@
-graph = {
-    "Main Gate": {
-        "Library": 100,
-        "CSE Block": 150
-    },
-    "Library": {
-        "Main Gate": 100,
-        "Canteen": 80
-    },
-    "CSE Block": {
-        "Main Gate": 150,
-        "Canteen": 120
-    },
-    "Canteen": {
-        "Library": 80,
-        "CSE Block": 120
-    }
-}
-graph["Sports"] = {}
-def shortest_path(graph, source, destination):
-    distance = {}
-    parent = {}
-    for location in graph:
-        distance[location]  = float('inf')
-        parent[location] = None
-    distance[source] = 0
-    visited = set()
-    for _ in range(len(graph)):
-        current = min((location for location in graph if location not in visited) , key = distance.get)
-        visited.add(current)     
-        if distance[current] == float('inf'):
-                    break   
-        for neighbor , dist in graph[current].items():
-            if neighbor not in visited:
-                new_distance = distance[current] + dist
-                if new_distance < distance[neighbor]:
-                    distance[neighbor] = new_distance
-                    parent[neighbor] = current
-    if distance[destination] == float('inf'):
-        return (None , None)
-    route = []
-    current = destination
-    while current is not None:
-        route.append(current)
-        current = parent[current]
-    route.reverse()
-    return (route , distance[destination])
 
-locations = list(graph.keys())
-print("Locations in the graph:")
-for location in locations:
-     print(location)
-source = input("Enter the source location: ")
-source = next(
-    (loc for loc in locations if loc.lower() == source.lower()),
-    None
-)
-if source is None:
-    print("Invalid source location.")
-    exit()
-destination = input("Enter the destination location: ")
-destination = next(
-    (loc for loc in locations if loc.lower() == destination.lower()),
-    None
-)
-if destination is None:
-     print("Invalid destination location.")
-     exit()
-route , total_dist = shortest_path(graph, source, destination)
-if route:
-    print("Shortest path:", " -> ".join(route))
-    print("Total distance:", total_dist, "meters")
-else:
-    print("No path found.")
+from graph import graph, locations, shortest_path
+from alias import location_aliases
+
+
+def get_location(message):
+
+    while True:
+
+        user_input = input(message).strip().lower()
+
+        # First check actual location names
+        for location in locations:
+
+            if user_input == location.lower():
+                return location
+
+        # Then check alternative names
+        for location, aliases in location_aliases.items():
+
+            if user_input in aliases:
+                return location
+
+        print("\nLocation not recognised!")
+        print("Please enter a valid campus location.")
+
+
+def display_route(route, total_distance):
+
+    if route is None:
+        print("\nNo route found between these locations.")
+        return
+
+    print("\n========== ROUTE DETAILS ==========")
+
+    print("\nShortest Route:")
+
+    for index, location in enumerate(route):
+        print(f"{index + 1}. {location}")
+
+    print("\nTotal Distance:", total_distance, "metres")
+
+    print("Number of locations visited:", len(route))
+
+    print("Number of road segments:", len(route) - 1)
+
+    print("===================================")
+
+
+def find_route(source, destination):
+
+    if source == destination:
+        print("\nYou are already at your destination!")
+        return
+
+    route, total_distance = shortest_path(
+        graph, source, destination
+    )
+
+    display_route(route, total_distance)
+
+
+
+def main():
+
+    print("\n================================")
+    print("       CAMPUS NAVIGATOR")
+    print("  Shri Vishnu Engineering College")
+    print("================================")
+
+    while True:
+
+        print("\n1. Find Shortest Route")
+        print("2. View All Campus Locations")
+        print("3. Exit")
+
+        choice = input("\nEnter your choice: ").strip()
+
+        if choice == "1":
+
+            source = get_location("\nEnter starting location: ")
+            destination = get_location("\nEnter destination: ")
+
+            find_route(source, destination)
+
+        elif choice == "2":
+
+            print("\n====== CAMPUS LOCATIONS ======")
+
+            for index, location in enumerate(locations, start=1):
+                print(f"{index}. {location}")
+
+            print("==============================")
+
+        elif choice == "3":
+
+            print("\nThank you for using Campus Navigator!")
+            break
+
+        else:
+            print("\nInvalid choice! Please select 1, 2 or 3.")
+
+
+if __name__ == "__main__":
+    main()
 
