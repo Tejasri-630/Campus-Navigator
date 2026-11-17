@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Campus Navigator | SVECW</title>
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <span class="logo-icon">📍</span>
+            <h1>Campus Navigator</h1>
+        </div>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="#popular-section">Explore</a>
+            <a href="#manual-navigation-section">Find Route</a>
+        </nav>
+    </header>
+    <main>
+        <section id="hero-section">
+
+            <div class="hero-content">
+
+                <span class="hero-label">WELCOME TO SVECW</span>
+
+                <h2>Explore Your Campus.</h2>
+
+                <h3>Find your way, effortlessly.</h3>
+
+                <p>
+                    Discover campus locations and find the shortest
+                    path to wherever you need to go.
+                </p>
+
+                <a href="#manual-navigation-section" class="hero-button">
+                    Find Your Destination →
+                </a>
+
+            </div>
+        </section>
+        <section id="popular-section">
+
+            <div class="section-heading">
+                <h2>Explore Popular Destinations</h2>
+                <p>Choose a destination and find your way around campus.</p>
+            </div>
+
+            <div class="destination-grid">
+
+                <button type="button" class="destination-card"
+                        data-destination="Library">
+                    <span class="destination-icon">📚</span>
+                    <h3>Library</h3>
+                    <p>Academic resources</p>
+                    <span class="navigate-text">Navigate →</span>
+                </button>
+
+                <button type="button" class="destination-card"
+                        data-destination="Sports Complex">
+                    <span class="destination-icon">🏆</span>
+                    <h3>Sports Complex</h3>
+                    <p>Sports and recreation</p>
+                    <span class="navigate-text">Navigate →</span>
+                </button>
+
+                <button type="button" class="destination-card"
+                        data-destination="Annapurna Canteen">
+                    <span class="destination-icon">🍽️</span>
+                    <h3>Annapurna Canteen</h3>
+                    <p>Food and refreshments</p>
+                    <span class="navigate-text">Navigate →</span>
+                </button>
+
+                <button type="button" class="destination-card"
+                        data-destination="Jewel Labs">
+                    <span class="destination-icon">🖥️</span>
+                    <h3>Jewel Labs</h3>
+                    <p>Innovation and learning</p>
+                    <span class="navigate-text">Navigate →</span>
+                </button>
+
+            </div>
+
+        </section>
+        <section id = "manual-navigation-section">  
+            <h2>Find Your Route</h2>
+            <p>Navigate through our campus with ease.</p>
+            <form id="route-form">
+        <!-- Starting Location -->
+        <label for="source">Starting Location</label>
+
+        <div class="autocomplete">
+            <input
+                type="text"
+                id="source"
+                placeholder="Enter starting location"
+                autocomplete="off"
+                required
+            >
+
+            <div id="source-suggestions" class="suggestions"></div>
+        </div>
+
+
+        <!-- Destination -->
+        <label for="destination">Destination</label>
+
+        <div class="autocomplete">
+            <input
+                type="text"
+                id="destination"
+                placeholder="Enter destination"
+                autocomplete="off"
+                required
+            >
+
+            <div id="destination-suggestions" class="suggestions"></div>
+        </div>
+
+
+        <button type="submit">Find Route</button>
+
+            </form>
+</section>
+<!-- Route results will appear here -->
+<div id="result"></div>
+
+
+    </main>
+<!-- LOCATION SELECTION POPUP -->
+
+<div id="location-modal" class="modal">
+
+    <div class="modal-content">
+
+        <button type="button" id="close-modal" class="close-button">
+            &times;
+        </button>
+
+        <h2 id="modal-title">Navigate to Library</h2>
+
+        <p>Choose your starting location.</p>
+
+        <button type="button" id="use-gps">
+            📍 Use my current location
+        </button>
+
+        <button type="button" id="choose-manually">
+            🔍 Choose manually
+        </button>
+
+    </div>
+
+</div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

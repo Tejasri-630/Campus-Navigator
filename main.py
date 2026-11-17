@@ -1,6 +1,6 @@
 
 from graph import graph, locations, shortest_path
-from alias import location_aliases
+from aliases import location_aliases
 from difflib import get_close_matches
 
 

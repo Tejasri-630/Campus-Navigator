@@ -82,7 +82,9 @@ connections = [
     ("Administration Hub", "Brewista", 0),
     ("Brewista", "Medha Hostel", 40),  # provisional
     ("Medha Hostel", "Central Square", 150),     # provisional
-    ("Medha Hostel", "ICICI Bank ATM", 150),  # provisional # provisional
+    ("Medha Hostel", "ICICI Bank ATM", 150),  # provisional # 
+    ("ICICI Bank ATM", "Central Square", 100),  # provisional
+
     # 7. Medha Hostel and Administration Hub
     ("Sports Complex - Fresh Choice Entrance", "Medical Shop", 120),
     ("Medha Hostel", "Administration Hub", 40),
